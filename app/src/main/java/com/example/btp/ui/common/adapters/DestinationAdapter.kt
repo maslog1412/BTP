@@ -10,17 +10,26 @@ import com.example.btp.databinding.ItemDestinationBinding
 import com.example.btp.model.Location
 
 class DestinationAdapter(
-    val clickListener: (Location) -> Unit
+    val clickListener: (List<Location>) -> Unit
 ) :
     ListAdapter<Location, DestinationAdapter.DestinationViewHolder>(REPO_COMPARATOR) {
+
+    private val selectedDestinations = mutableListOf<Location>()
 
     inner class DestinationViewHolder(private val binding: ItemDestinationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(location: Location) {
             with(binding) {
-                destinationNameTextView.text = location.city
+                destinationNameTextView.text = location.touristSpot
                 Glide.with(root.context).load(location.imageUrl).into(destinationImageView)
-                destinationItemCard.setOnClickListener { clickListener(location) }
+                destinationItemCard.setOnClickListener {
+                    if (selectedDestinations.contains(location)) {
+                        selectedDestinations.remove(location)
+                    } else {
+                        selectedDestinations.add(location)
+                    }
+                    clickListener(selectedDestinations)
+                }
             }
         }
     }
@@ -38,7 +47,7 @@ class DestinationAdapter(
     companion object {
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Location>() {
             override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean =
-                oldItem.city == newItem.city
+                oldItem.touristSpot == newItem.touristSpot
 
             override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean =
                 oldItem == newItem

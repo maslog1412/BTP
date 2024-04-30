@@ -4,12 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class TripParameters(
-    val source: Location,
-    val destination: Location,
-    val checkInDate: String,
-    val checkOutDate: String,
-    val originalBudget: Double,
-    var remainingBudget: Double,
-    val guests: Int
+data class TripSummary(
+    val id: Int? = 0,
+    val tripParameters: TripParameters,
 ) : Parcelable

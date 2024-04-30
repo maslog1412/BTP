@@ -1,53 +1,45 @@
 package com.example.btp.utils
 
-import android.text.Html
-import android.text.Spanned
 import com.example.btp.model.Budget
 import com.example.btp.model.Location
 
 fun getSampleDestinations(): List<Location> {
     return listOf(
         Location(
-            "Toronto",
-            "https://upload.wikimedia.org/wikipedia/commons/a/a8/CC_2022-06-18_193-Pano_%28cropped%29_01.jpg",
-            43.651070,
-            -79.347015
+            "Chocolate Hills",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Bohol_Hills%2C_Chocolate_Hills%2C_Philippines.jpg/640px-Bohol_Hills%2C_Chocolate_Hills%2C_Philippines.jpg",
+            9.831314,
+            124.139503
         ),
         Location(
-            "New York",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/450px-New_york_times_square-terabass.jpg",
-            40.730610,
-            -73.935242
+            "Panglao Island",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Alona_Beach_Palmtree.jpg/1280px-Alona_Beach_Palmtree.jpg",
+            9.598647,
+            123.811268
         ),
         Location(
-            "Paris",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1280px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
-            48.864716,
-            2.349014
+            "Loboc River",
+            "https://upload.wikimedia.org/wikipedia/commons/5/5c/Loboc_river.png",
+            9.722564,
+            123.910426
         ),
         Location(
-            "Dubai",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Dubai_Marina_Skyline.jpg/1280px-Dubai_Marina_Skyline.jpg",
-            25.276987,
-            55.296249
+            "Hinagdanan Cave",
+            "https://upload.wikimedia.org/wikipedia/commons/8/86/Hinagdanan_cave%2C_Bohol.jpg",
+            9.625280,
+            123.782451
         ),
         Location(
-            "London",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/1920px-London_Skyline_%28125508655%29.jpeg",
-            51.509865,
-            -0.118092
+            "Alona Beach",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Alona_Beach_Overview.jpg/1280px-Alona_Beach_Overview.jpg",
+            9.548103,
+            123.766754
         ),
         Location(
-            "Dublin",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/GoergeSalmonTrinityCollegeDublin.jpg/1280px-GoergeSalmonTrinityCollegeDublin.jpg",
-            53.350140,
-            -6.266155
-        ),
-        Location(
-            "Tokyo",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/1920px-Skyscrapers_of_Shinjuku_2009_January.jpg",
-            35.652832,
-            139.839478
+            "Punta Cruz",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Punta_Cruz_Watchtower_2019.jpg/1280px-Punta_Cruz_Watchtower_2019.jpg",
+            9.735042,
+            123.787536
         ),
     )
 }

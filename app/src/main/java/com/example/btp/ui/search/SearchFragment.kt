@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.example.btp.ui.common.adapters.BudgetAdapter
 import com.example.btp.ui.common.adapters.DestinationAdapter
 import com.example.btp.utils.Result
 import com.example.btp.utils.formatBudget
+import com.example.btp.utils.getSampleDestinations
 import com.example.btp.utils.getSelectedDateRange
 import com.example.btp.utils.onLoading
 import com.example.btp.utils.onLoadingFailure
@@ -31,7 +33,6 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var budgetAdapter: BudgetAdapter
-    private var source: Location? = null
     private var destination: Location? = null
     private var budget: Double = 0.0
     private var numGuests: Int = 0
@@ -107,7 +108,6 @@ class SearchFragment : Fragment() {
                 val dates = datePickerEditText.text.toString().split(" - ")
                 if (dates.size == 2) {
                     val tripParameters = TripParameters(
-                        source!!,
                         destination!!,
                         dates[0].trim(),
                         dates[1].trim(),
@@ -121,12 +121,15 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            destinationAdapter = DestinationAdapter {
-                destination = it
-                Toast.makeText(
-                    root.context, getString(R.string.autofill_destination), Toast.LENGTH_SHORT
-                ).show()
-                validateFields()
+            editTextDestination.setOnClickListener {
+                showDestinationDialog(getSampleDestinations())
+            }
+
+            destinationAdapter = DestinationAdapter { selectedDestinations ->
+                val selectedDestinationNames = selectedDestinations.joinToString { it.touristSpot }
+                editTextDestination.setText(selectedDestinationNames)
+                destination = selectedDestinations.firstOrNull() // Update selected destination
+                validateFields() // Trigger validation
             }
             popularDestinationsRecyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -137,6 +140,8 @@ class SearchFragment : Fragment() {
                 Toast.makeText(
                     root.context, getString(R.string.autofill_budget), Toast.LENGTH_SHORT
                 ).show()
+                budget = it.value.toDouble() // Update budget
+                validateFields() // Trigger validation
             }
             suggestedBudgetsRecyclerView.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -145,9 +150,37 @@ class SearchFragment : Fragment() {
     }
 
     private fun validateFields() {
+        val dates = binding.datePickerEditText.text.toString().split(" - ")
         binding.planTripButton.isEnabled =
-            (numGuests > 0 && budget > 0 && binding.datePickerEditText.text.isNotEmpty() && source != null && destination != null)
+            (numGuests > 0 && budget > 0 && dates.size == 2 && destination != null)
     }
+
+    private fun showDestinationDialog(destinations: List<Location>) {
+        val selectedItems = BooleanArray(destinations.size)
+        val destinationNames = destinations.map { it.touristSpot }.toTypedArray()
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Select Destinations")
+            .setMultiChoiceItems(
+                destinationNames,
+                selectedItems
+            ) { dialog, which, isChecked ->
+                selectedItems[which] = isChecked
+            }
+            .setPositiveButton("OK") { dialog, which ->
+                val selectedDestinations = destinations.filterIndexed { index, _ ->
+                    selectedItems[index]
+                }
+                val selectedDestinationNames = selectedDestinations.joinToString { it.touristSpot }
+                binding.editTextDestination.setText(selectedDestinationNames)
+                // Update selected destinations
+                destination = selectedDestinations.firstOrNull()
+                validateFields() // Trigger validation
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
 
     private fun datePickerDialog() {
         val builder = MaterialDatePicker.Builder.dateRangePicker()
@@ -168,14 +201,14 @@ class SearchFragment : Fragment() {
         override fun afterTextChanged(s: Editable?) {
             val budgetEditText = binding.budgetEditText
             budgetEditText.removeTextChangedListener(this)
-            val text = budgetEditText.text
+            val text = budgetEditText.text.toString()
             if (text.isNotEmpty()) {
-                if (text.toString() == "$") {
+                if (text == "$") {
                     budgetEditText.setText("")
                     budget = 0.0
                 } else {
-                    val formattedBudget = formatBudget(text.toString())
-                    budget = formattedBudget.first
+                    val formattedBudget = formatBudget(text)
+                    budget = formattedBudget.first.toDouble()
                     budgetEditText.setText(getString(R.string.budget_text, formattedBudget.second))
                     budgetEditText.setSelection(budgetEditText.text.length)
                 }
