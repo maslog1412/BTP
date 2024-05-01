@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.MainActivity"
+    android:background="@color/md_theme_background">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -35,7 +36,7 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="0dp"
         android:layout_height="76dp"
-        android:background="@color/white"
+        android:background="@color/md_theme_background"
         android:elevation="8dp"
         app:elevation="8dp"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"

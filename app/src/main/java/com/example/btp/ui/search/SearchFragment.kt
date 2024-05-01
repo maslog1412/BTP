@@ -159,7 +159,7 @@ class SearchFragment : Fragment() {
         val selectedItems = BooleanArray(destinations.size)
         val destinationNames = destinations.map { it.touristSpot }.toTypedArray()
 
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext(),)
             .setTitle("Select Destinations")
             .setMultiChoiceItems(
                 destinationNames,
@@ -203,7 +203,7 @@ class SearchFragment : Fragment() {
             budgetEditText.removeTextChangedListener(this)
             val text = budgetEditText.text.toString()
             if (text.isNotEmpty()) {
-                if (text == "$") {
+                if (text == "₱") {
                     budgetEditText.setText("")
                     budget = 0.0
                 } else {

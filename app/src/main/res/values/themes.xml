@@ -9,9 +9,8 @@
         <item name="android:windowBackground">@color/md_theme_background</item>
         <item name="android:navigationBarColor">@color/md_theme_primary</item>
     </style>
-
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/theme_color_light</item>
+        <item name="android:color">@color/md_theme_primaryContainer</item>
     </style>
 
     <style name="AppTheme.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.btp.R
-import com.example.btp.databinding.ItemBudgetBinding
+import com.example.btp.databinding.ItemBudgetSearchBinding
 import com.example.btp.model.Budget
 import java.text.NumberFormat
 
@@ -14,7 +14,7 @@ class BudgetAdapter(
     val clickListener: (Budget) -> Unit
 ) : ListAdapter<Budget, BudgetAdapter.BudgetViewHolder>(REPO_COMPARATOR) {
 
-    inner class BudgetViewHolder(private val binding: ItemBudgetBinding) :
+    inner class BudgetViewHolder(private val binding: ItemBudgetSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(budget: Budget) {
             with(binding) {
@@ -30,7 +30,7 @@ class BudgetAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BudgetViewHolder {
-        val binding = ItemBudgetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemBudgetSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BudgetViewHolder(binding)
     }
 

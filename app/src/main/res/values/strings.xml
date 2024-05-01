@@ -7,8 +7,8 @@
     <string name="enter_budget">Enter budget</string>
     <string name="enter_dates">Enter dates</string>
     <string name="popular_destinations">Popular Destinations</string>
-    <string name="budget_suggestion">&lt; $%s</string>
-    <string name="budget_text">$%s</string>
+    <string name="budget_suggestion">&lt; ₱%s</string>
+    <string name="budget_text">₱%s</string>
     <string name="explore">Explore</string>
     <string name="my_trips">My Trips</string>
     <string name="enter_destination">Enter destination</string>
